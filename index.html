@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>CosechaConecta | Prototipo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="phone-shell">
+        <div class="status-bar">CosechaConecta · Prototipo Demostrativo</div>
+
+        <div class="app" id="app">
+            <div class="toast-wrap">
+                <div class="toast" id="toast"></div>
+            </div>
+
+            <section class="screen active" id="screen-welcome">
+                <div class="hero">
+                    <h1>🌾 CosechaConecta</h1>
+                    <p>Cosechas que llegan, ingresos que cambian vidas.</p>
+                    <div class="tag">🤝 Comunidad rural conectada</div>
+                </div>
+                <div style="margin-top: auto; padding-bottom: 24px;">
+                    <button class="btn btn-primary" id="btn-start">Comenzar</button>
+                </div>
+            </section>
+
+            <section class="screen" id="screen-register">
+                <h2 class="screen-title">🧾 Registro Simulado</h2>
+                <p class="muted">Completa los datos para ingresar a la comunidad.</p>
+
+                <div class="field">
+                    <label for="name">Nombre</label>
+                    <input id="name" type="text" placeholder="Ej: María Torres" maxlength="40">
+                </div>
+
+                <div class="field">
+                    <label for="role">Tipo de usuario</label>
+                    <select id="role">
+                        <option value="Agricultor">Agricultor</option>
+                        <option value="Comprador">Comprador</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-primary" id="btn-register">Registrarme</button>
+            </section>
+
+            <section class="screen" id="screen-home">
+                <h2 class="screen-title">🛒 Ofertas disponibles</h2>
+                <p class="muted">Productos agrícolas listos para comercializar.</p>
+
+                <div class="product-list">
+                    <article class="product">
+                        <h3>Yuca</h3>
+                        <p>50kg · $2.000/kg</p>
+                        <button class="small-btn contact-btn" data-product="Yuca">Ver / Contactar</button>
+                    </article>
+
+                    <article class="product">
+                        <h3>Plátano</h3>
+                        <p>30kg · $1.800/kg</p>
+                        <button class="small-btn contact-btn" data-product="Plátano">Ver / Contactar</button>
+                    </article>
+
+                    <article class="product">
+                        <h3>Mango</h3>
+                        <p>20kg · $3.000/kg</p>
+                        <button class="small-btn contact-btn" data-product="Mango">Ver / Contactar</button>
+                    </article>
+                </div>
+            </section>
+
+            <section class="screen" id="screen-publish">
+                <h2 class="screen-title">📦 Publicar producto</h2>
+                <p class="muted">Publicación simulada para demostración.</p>
+
+                <div class="field">
+                    <label for="product-name">Nombre del producto</label>
+                    <input id="product-name" type="text" placeholder="Ej: Tomate" maxlength="30">
+                </div>
+
+                <div class="field">
+                    <label for="product-qty">Cantidad</label>
+                    <input id="product-qty" type="text" placeholder="Ej: 40kg" maxlength="20">
+                </div>
+
+                <div class="field">
+                    <label for="product-price">Precio</label>
+                    <input id="product-price" type="text" placeholder="Ej: $2.500/kg" maxlength="20">
+                </div>
+
+                <button class="btn btn-primary" id="btn-publish">Publicar</button>
+            </section>
+
+            <section class="screen" id="screen-chat">
+                <h2 class="screen-title">💬 Chat comunitario</h2>
+                <p class="muted" id="chat-context">Conversación de ejemplo.</p>
+
+                <div class="chat-box" id="chat-box">
+                    <div class="msg buyer">Comprador: ¿Está disponible el producto?</div>
+                    <div class="msg farmer">Agricultor: Sí, aún tengo disponible.</div>
+                </div>
+
+                <div class="chat-input">
+                    <input id="chat-input" type="text" placeholder="Escribe un mensaje...">
+                    <button class="send-btn" id="btn-send">Enviar</button>
+                </div>
+
+                <button class="btn btn-secondary" id="btn-close-deal">Cerrar trato</button>
+            </section>
+
+            <section class="screen" id="screen-profile">
+                <h2 class="screen-title">👤 Perfil</h2>
+                <div class="card">
+                    <p><strong>Nombre:</strong> <span id="profile-name">Usuario Demo</span></p>
+                    <p style="margin-top: 6px;"><strong>Rol:</strong> <span id="profile-role">Agricultor</span></p>
+                </div>
+
+                <div class="card">
+                    <p><strong>Productos publicados:</strong></p>
+                    <div class="list-inline">
+                        <span>• Yuca - 50kg</span>
+                        <span>• Plátano - 30kg</span>
+                        <span>• Mango - 20kg</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <p><strong>Comisión por venta:</strong> 5%</p>
+                </div>
+
+                <button class="btn btn-secondary" id="btn-logout">Cerrar sesión</button>
+            </section>
+
+            <button class="fab hidden" id="fab-publish">+ Publicar producto</button>
+
+            <nav class="bottom-nav hidden" id="bottom-nav">
+                <button class="nav-item active" data-target="screen-home">
+                    <span class="icon">🏠</span>
+                    Inicio
+                </button>
+                <button class="nav-item" data-target="screen-publish">
+                    <span class="icon">➕</span>
+                    Publicar
+                </button>
+                <button class="nav-item" data-target="screen-chat">
+                    <span class="icon">💬</span>
+                    Chat
+                </button>
+                <button class="nav-item" data-target="screen-profile">
+                    <span class="icon">👤</span>
+                    Perfil
+                </button>
+            </nav>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
