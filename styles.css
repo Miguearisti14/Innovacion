@@ -125,6 +125,29 @@ body {
     animation: fadeUp 0.4s ease;
 }
 
+.screen-topbar {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 8px;
+}
+
+.back-btn {
+    border: 1px solid #cde0c2;
+    background: #eef6e7;
+    color: #245c31;
+    border-radius: 999px;
+    padding: 9px 12px;
+    font-size: 0.84rem;
+    font-weight: 700;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.back-btn:active {
+    transform: scale(0.98);
+}
+
 .muted {
     color: var(--text-600);
     font-size: 0.9rem;
@@ -213,6 +236,13 @@ select:focus {
 .product p {
     color: var(--text-600);
     font-size: 0.89rem;
+    margin-bottom: 10px;
+}
+
+.seller-line {
+    font-size: 0.82rem;
+    color: #2f6b3b;
+    font-weight: 600;
     margin-bottom: 10px;
 }
 
@@ -334,6 +364,39 @@ select:focus {
     padding: 12px;
     background: #fff;
     margin-top: 8px;
+}
+
+.seller-card {
+    background: #f9fff4;
+}
+
+.seller-summary {
+    color: #35623f;
+    font-size: 0.85rem;
+    margin: 6px 0 8px;
+}
+
+.review-list {
+    margin-top: 6px;
+    display: grid;
+    gap: 6px;
+    font-size: 0.84rem;
+    color: #40594a;
+}
+
+.delivery-card {
+    background: #f2f9eb;
+    border-color: #cde3be;
+}
+
+.delivery-card p {
+    margin-top: 6px;
+    color: #2d5034;
+    font-size: 0.88rem;
+}
+
+.delivery-card p:first-child {
+    margin-top: 0;
 }
 
 .list-inline {

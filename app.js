@@ -3,11 +3,52 @@ const bottomNav = document.getElementById('bottom-nav');
 const navItems = document.querySelectorAll('.nav-item');
 const fabPublish = document.getElementById('fab-publish');
 const toast = document.getElementById('toast');
+const backButtons = document.querySelectorAll('.back-btn');
 
 const appState = {
     name: 'Usuario Demo',
-    role: 'Agricultor'
+    role: 'Agricultor',
+    currentProduct: 'Yuca',
+    currentSeller: 'Don Carlos R.'
 };
+
+const sellersData = {
+    Yuca: {
+        seller: 'Don Carlos R.',
+        summary: '12 ventas cerradas · 4.9/5',
+        reviews: [
+            'Entrega puntual y producto fresco.',
+            'Comunicación clara durante la compra.',
+            'Buena presentación del producto.'
+        ],
+        deliveryPoint: 'Plaza central del mercado',
+        deliveryTime: 'Mañana, 8:30 a. m.'
+    },
+    'Plátano': {
+        seller: 'María Tovar',
+        summary: '9 ventas cerradas · 4.8/5',
+        reviews: [
+            'Muy cumplida con la hora acordada.',
+            'Producto en excelente estado.',
+            'Recomendada para compras semanales.'
+        ],
+        deliveryPoint: 'Parque de la vereda El Progreso',
+        deliveryTime: 'Hoy, 4:30 p. m.'
+    },
+    Mango: {
+        seller: 'Jhon Mendoza',
+        summary: '15 ventas cerradas · 4.7/5',
+        reviews: [
+            'Buen precio y trato amable.',
+            'Llegó con la cantidad completa.',
+            'Proceso de compra muy rapido.'
+        ],
+        deliveryPoint: 'Entrada de la cooperativa agraria',
+        deliveryTime: 'Mañana, 10:00 a. m.'
+    }
+};
+
+const screenHistory = ['screen-welcome'];
 
 function showToast(message) {
     toast.textContent = message;
@@ -18,6 +59,11 @@ function showToast(message) {
 }
 
 function showScreen(screenId) {
+    const currentScreenId = screenHistory[screenHistory.length - 1];
+    if (currentScreenId !== screenId) {
+        screenHistory.push(screenId);
+    }
+
     screens.forEach((screen) => {
         if (screen.id === screenId) {
             screen.classList.add('active');
@@ -44,8 +90,77 @@ function showScreen(screenId) {
     }
 }
 
+function updateChatSellerInfo(productName) {
+    const fallback = sellersData.Yuca;
+    const info = sellersData[productName] || fallback;
+
+    appState.currentProduct = productName;
+    appState.currentSeller = info.seller;
+
+    document.getElementById('chat-seller-name').textContent = info.seller;
+    document.getElementById('chat-seller-summary').textContent = info.summary;
+
+    const reviewsContainer = document.getElementById('chat-reviews');
+    reviewsContainer.innerHTML = '';
+    info.reviews.forEach((review) => {
+        const item = document.createElement('span');
+        item.textContent = `• ${review}`;
+        reviewsContainer.appendChild(item);
+    });
+
+    document.getElementById('delivery-point').textContent = info.deliveryPoint;
+    document.getElementById('delivery-time').textContent = info.deliveryTime;
+    document.getElementById('delivery-info').classList.add('hidden');
+}
+
+function goBack() {
+    if (screenHistory.length > 1) {
+        screenHistory.pop();
+    }
+
+    const previousScreenId = screenHistory[screenHistory.length - 1] || 'screen-welcome';
+
+    screens.forEach((screen) => {
+        if (screen.id === previousScreenId) {
+            screen.classList.add('active');
+        } else {
+            screen.classList.remove('active');
+        }
+    });
+
+    const appAreaScreens = ['screen-home', 'screen-publish', 'screen-chat', 'screen-profile'];
+    const inMainFlow = appAreaScreens.includes(previousScreenId);
+    bottomNav.classList.toggle('hidden', !inMainFlow);
+
+    const showFab = previousScreenId === 'screen-home';
+    fabPublish.classList.toggle('hidden', !showFab);
+
+    navItems.forEach((item) => {
+        const isActive = item.getAttribute('data-target') === previousScreenId;
+        item.classList.toggle('active', isActive);
+    });
+
+    if (previousScreenId === 'screen-profile') {
+        document.getElementById('profile-name').textContent = appState.name;
+        document.getElementById('profile-role').textContent = appState.role;
+    }
+}
+
 document.getElementById('btn-start').addEventListener('click', () => {
     showScreen('screen-register');
+});
+
+backButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+        const backTarget = button.getAttribute('data-back');
+        if (backTarget === 'screen-welcome') {
+            screenHistory.length = 1;
+            showScreen('screen-welcome');
+            return;
+        }
+
+        goBack();
+    });
 });
 
 document.getElementById('btn-register').addEventListener('click', () => {
@@ -64,7 +179,9 @@ document.getElementById('btn-register').addEventListener('click', () => {
 document.querySelectorAll('.contact-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
         const product = btn.getAttribute('data-product');
-        document.getElementById('chat-context').textContent = `Conversación sobre: ${product}`;
+        const seller = btn.getAttribute('data-seller') || 'Vendedor local';
+        document.getElementById('chat-context').textContent = `Conversación sobre: ${product} · ${seller}`;
+        updateChatSellerInfo(product);
         showToast(`Contacto iniciado por ${product}`);
         showScreen('screen-chat');
     });
@@ -111,7 +228,9 @@ document.getElementById('btn-send').addEventListener('click', () => {
 });
 
 document.getElementById('btn-close-deal').addEventListener('click', () => {
-    showToast('Venta realizada con éxito 🎉');
+    const deliveryInfo = document.getElementById('delivery-info');
+    deliveryInfo.classList.remove('hidden');
+    showToast('Venta realizada con éxito 🎉 Revisa punto y hora de entrega');
 });
 
 document.getElementById('btn-logout').addEventListener('click', () => {
@@ -120,6 +239,7 @@ document.getElementById('btn-logout').addEventListener('click', () => {
     document.getElementById('chat-input').value = '';
     showToast('Sesión cerrada');
     setTimeout(() => {
+        screenHistory.length = 1;
         showScreen('screen-welcome');
     }, 350);
 });
@@ -129,3 +249,5 @@ document.getElementById('chat-input').addEventListener('keydown', (event) => {
         document.getElementById('btn-send').click();
     }
 });
+
+updateChatSellerInfo('Yuca');

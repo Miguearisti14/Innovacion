@@ -29,6 +29,7 @@
             </section>
 
             <section class="screen" id="screen-register">
+                <button class="back-btn" type="button" data-back="screen-welcome">← Volver</button>
                 <h2 class="screen-title">🧾 Registro Simulado</h2>
                 <p class="muted">Completa los datos para ingresar a la comunidad.</p>
 
@@ -49,6 +50,9 @@
             </section>
 
             <section class="screen" id="screen-home">
+                <div class="screen-topbar">
+                    <button class="back-btn" type="button" data-back="screen-register">← Volver</button>
+                </div>
                 <h2 class="screen-title">🛒 Ofertas disponibles</h2>
                 <p class="muted">Productos agrícolas listos para comercializar.</p>
 
@@ -56,24 +60,31 @@
                     <article class="product">
                         <h3>Yuca</h3>
                         <p>50kg · $2.000/kg</p>
-                        <button class="small-btn contact-btn" data-product="Yuca">Ver / Contactar</button>
+                        <p class="seller-line">Vendedor: Don Carlos R.</p>
+                        <button class="small-btn contact-btn" data-product="Yuca" data-seller="Don Carlos R.">Ver /
+                            Contactar</button>
                     </article>
 
                     <article class="product">
                         <h3>Plátano</h3>
                         <p>30kg · $1.800/kg</p>
-                        <button class="small-btn contact-btn" data-product="Plátano">Ver / Contactar</button>
+                        <p class="seller-line">Vendedora: María Tovar</p>
+                        <button class="small-btn contact-btn" data-product="Plátano" data-seller="María Tovar">Ver /
+                            Contactar</button>
                     </article>
 
                     <article class="product">
                         <h3>Mango</h3>
                         <p>20kg · $3.000/kg</p>
-                        <button class="small-btn contact-btn" data-product="Mango">Ver / Contactar</button>
+                        <p class="seller-line">Vendedor: Jhon Mendoza</p>
+                        <button class="small-btn contact-btn" data-product="Mango" data-seller="Jhon Mendoza">Ver /
+                            Contactar</button>
                     </article>
                 </div>
             </section>
 
             <section class="screen" id="screen-publish">
+                <button class="back-btn" type="button" data-back="screen-home">← Volver</button>
                 <h2 class="screen-title">📦 Publicar producto</h2>
                 <p class="muted">Publicación simulada para demostración.</p>
 
@@ -96,8 +107,20 @@
             </section>
 
             <section class="screen" id="screen-chat">
+                <button class="back-btn" type="button" data-back="screen-home">← Volver</button>
                 <h2 class="screen-title">💬 Chat comunitario</h2>
                 <p class="muted" id="chat-context">Conversación de ejemplo.</p>
+
+                <div class="card seller-card" id="seller-card">
+                    <p><strong>Vendedor:</strong> <span id="chat-seller-name">Don Carlos R.</span></p>
+                    <p class="seller-summary" id="chat-seller-summary">12 ventas cerradas · 4.9/5</p>
+                    <p><strong>Reseñas / referencias:</strong></p>
+                    <div class="review-list" id="chat-reviews">
+                        <span>• Entrega puntual y producto fresco.</span>
+                        <span>• Comunicación clara durante la compra.</span>
+                        <span>• Buena presentación del producto.</span>
+                    </div>
+                </div>
 
                 <div class="chat-box" id="chat-box">
                     <div class="msg buyer">Comprador: ¿Está disponible el producto?</div>
@@ -110,9 +133,16 @@
                 </div>
 
                 <button class="btn btn-secondary" id="btn-close-deal">Cerrar trato</button>
+
+                <div class="card delivery-card hidden" id="delivery-info">
+                    <p><strong>✅ Trato confirmado</strong></p>
+                    <p><strong>Punto de entrega:</strong> <span id="delivery-point">Plaza central del mercado</span></p>
+                    <p><strong>Hora de encuentro:</strong> <span id="delivery-time">Mañana, 8:30 a. m.</span></p>
+                </div>
             </section>
 
             <section class="screen" id="screen-profile">
+                <button class="back-btn" type="button" data-back="screen-home">← Volver</button>
                 <h2 class="screen-title">👤 Perfil</h2>
                 <div class="card">
                     <p><strong>Nombre:</strong> <span id="profile-name">Usuario Demo</span></p>
